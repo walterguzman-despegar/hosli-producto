@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hosli · El sistema operativo de tu hotel</title>
+<meta name="description" content="Hosli reúne precios, canales y compras de tu hotel en un solo ciclo: mira qué necesita atención, decide con todo el contexto y ejecuta sin salir de Hosli.">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hosli · El sistema operativo de tu hotel">
+<meta property="og:description" content="Precios, canales y compras en un solo ciclo. Mira, decide y ejecuta desde la web, WhatsApp o Telegram.">
+<meta property="og:image" content="https://walterguzman-despegar.github.io/hosli-producto/assets/og.jpg">
+<meta property="og:url" content="https://walterguzman-despegar.github.io/hosli-producto/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&family=Caveat:wght@600;700&display=swap">
+<style>
+  :root {
+    --ink: #262626;
+    --ink-soft: #595959;
+    --ink-mute: #8a8a95;
+    --ground: #ffffff;
+    --mist: #f6f5fb;
+    --lilac: #efeaff;
+    --line: #e6e3f2;
+    --brand: #4d27d4;
+    --brand-deep: #3a1aa8;
+    --brand-ink: #ffffff;
+    --script: #028573;
+    --shadow: 0 24px 60px -28px rgba(38, 20, 110, .35);
+    --shadow-soft: 0 10px 30px -18px rgba(38, 20, 110, .25);
+    --radius: 18px;
+    --font-body: "Rubik", "Segoe UI", system-ui, -apple-system, sans-serif;
+    --font-script: "Caveat", "Segoe Script", "Bradley Hand", cursive;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #eceaf6;
+      --ink-soft: #b8b4cc;
+      --ink-mute: #8b879f;
+      --ground: #12101c;
+      --mist: #1a1729;
+      --lilac: #241f3d;
+      --line: #2c2745;
+      --brand: #8b6cff;
+      --brand-deep: #a48cff;
+      --brand-ink: #12101c;
+      --script: #3fc9a6;
+      --shadow: 0 24px 60px -28px rgba(0, 0, 0, .8);
+      --shadow-soft: 0 10px 30px -18px rgba(0, 0, 0, .7);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #eceaf6;
+    --ink-soft: #b8b4cc;
+    --ink-mute: #8b879f;
+    --ground: #12101c;
+    --mist: #1a1729;
+    --lilac: #241f3d;
+    --line: #2c2745;
+    --brand: #8b6cff;
+    --brand-deep: #a48cff;
+    --brand-ink: #12101c;
+    --script: #3fc9a6;
+    --shadow: 0 24px 60px -28px rgba(0, 0, 0, .8);
+    --shadow-soft: 0 10px 30px -18px rgba(0, 0, 0, .7);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  img, video { max-width: 100%; height: auto; display: block; }
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--brand); outline-offset: 3px; border-radius: 6px; }
+
+  h1, h2, h3 { margin: 0; font-weight: 500; letter-spacing: -0.01em; text-wrap: balance; line-height: 1.15; }
+  h1 { font-size: clamp(2.2rem, 5.2vw, 3.6rem); }
+  h2 { font-size: clamp(1.7rem, 3.4vw, 2.5rem); }
+  h3 { font-size: clamp(1.35rem, 2.2vw, 1.7rem); }
+  p { margin: 0; }
+  .lede { color: var(--ink-soft); font-size: clamp(1.05rem, 1.5vw, 1.2rem); max-width: 34rem; }
+
+  .wrap { width: min(1120px, 100% - 2.5rem); margin-inline: auto; }
+  .eyebrow {
+    font-size: .78rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .script { font-family: var(--font-script); color: var(--script); font-weight: 700; line-height: 1; }
+
+  /* ---------- top bar ---------- */
+  .topbar { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--ground) 86%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .7rem 0; }
+  .brand { display: inline-flex; align-items: center; gap: .55rem; text-decoration: none; font-weight: 600; letter-spacing: .12em; font-size: .85rem; }
+  .brand img { width: 26px; height: 26px; }
+  .topnav { display: none; gap: 1.6rem; font-size: .95rem; }
+  .topnav a { text-decoration: none; color: var(--ink-soft); }
+  .topnav a:hover { color: var(--ink); }
+  @media (min-width: 900px) { .topnav { display: flex; } }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: .5rem; padding: .78rem 1.25rem; border-radius: 999px;
+    font-weight: 500; font-size: .98rem; text-decoration: none; border: 1.5px solid transparent;
+    transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    white-space: nowrap;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--brand); color: var(--brand-ink); }
+  .btn-primary:hover { background: var(--brand-deep); }
+  .btn-ghost { border-color: var(--line); color: var(--ink); background: transparent; }
+  .btn-ghost:hover { border-color: var(--brand); }
+  .btn-sm { padding: .55rem 1rem; font-size: .9rem; }
+  .btn svg { width: 16px; height: 16px; }
+
+  /* ---------- hero ---------- */
+  .hero { padding: clamp(3rem, 8vw, 6rem) 0 clamp(2.5rem, 6vw, 4rem); text-align: center; }
+  .hero-logo { display: flex; flex-direction: column; align-items: center; gap: .4rem; }
+  .hero-logo video { width: clamp(120px, 18vw, 180px); }
+  .hero-word { display: flex; align-items: flex-end; justify-content: center; gap: .6rem; }
+  .hero-word img:first-child { width: clamp(180px, 30vw, 300px); }
+  .hero-word img:last-child { width: clamp(90px, 16vw, 160px); margin-bottom: 4px; }
+  .hero h1 { margin-top: 1.6rem; }
+  .hero .lede { margin: 1rem auto 0; }
+  .hero-cta { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; margin-top: 2rem; }
+  .hero-note { margin-top: 1.1rem; font-size: .9rem; color: var(--ink-mute); }
+
+  /* ---------- cycle ---------- */
+  .cycle { padding: clamp(2rem, 5vw, 4rem) 0; }
+  .cycle-grid { display: grid; gap: 2.5rem; align-items: center; }
+  @media (min-width: 900px) { .cycle-grid { grid-template-columns: 1.05fr .95fr; gap: 3rem; } }
+  .cycle h2 { margin-top: .6rem; }
+  .cycle-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; margin-top: 1.8rem; }
+  @media (max-width: 600px) { .cycle-cards { grid-template-columns: 1fr; } }
+  .cycle-card { background: var(--mist); border-radius: var(--radius); padding: 1.2rem 1.1rem; display: flex; flex-direction: column; justify-content: space-between; min-height: 190px; gap: 1rem; }
+  .cycle-card strong { font-weight: 500; font-size: 1.05rem; line-height: 1.3; }
+  .cycle-card .big { font-size: 2.4rem; color: var(--script); font-weight: 500; letter-spacing: -.02em; }
+  .cycle-card .icons { width: 96px; }
+  .loop { display: grid; grid-template-columns: auto auto; gap: .25rem .9rem; align-items: center; font-size: .92rem; color: var(--script); }
+  .loop img { width: 40px; opacity: .7; }
+  .cycle-visual { position: relative; }
+  .cycle-visual .laptop { width: 100%; }
+  .cycle-visual .phone { position: absolute; right: -3%; bottom: -6%; width: 24%; filter: drop-shadow(0 18px 30px rgba(0,0,0,.25)); }
+  .cycle-notes { position: absolute; top: 4%; left: -8%; display: flex; flex-direction: column; gap: 1.6rem; }
+  .cycle-notes .script { font-size: 1.7rem; }
+  .cycle-notes small { display: block; font-size: 1rem; font-family: var(--font-script); color: var(--script); font-weight: 600; margin-bottom: -.3rem; }
+  @media (max-width: 899px) { .cycle-notes { display: none; } .cycle-visual .phone { right: 0; } }
+
+  /* ---------- feature sections ---------- */
+  .feature { padding: clamp(2.5rem, 6vw, 5rem) 0; border-top: 1px solid var(--line); }
+  .feature-grid { display: grid; gap: 2rem; align-items: center; }
+  @media (min-width: 900px) {
+    .feature-grid { grid-template-columns: 5fr 7fr; gap: 3.5rem; }
+    .feature.flip .feature-grid { grid-template-columns: 7fr 5fr; }
+    .feature.flip .feature-copy { order: 2; }
+  }
+  .feature-copy { display: flex; flex-direction: column; gap: 1rem; }
+  .feature-copy .eyebrow { color: var(--brand); }
+  .feature-copy p { color: var(--ink-soft); max-width: 30rem; }
+  .find {
+    margin-top: .4rem; display: inline-flex; flex-wrap: wrap; align-items: center; gap: .3rem .45rem; text-decoration: none;
+    color: var(--brand); font-weight: 500; width: fit-content;
+  }
+  .find:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .find svg { width: 16px; height: 16px; flex: none; }
+  .find .lead { white-space: nowrap; }
+  .find .crumb { color: var(--ink-soft); font-weight: 400; }
+  .badge { display: inline-block; font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--script); background: color-mix(in srgb, var(--script) 12%, var(--ground)); padding: .3rem .6rem; border-radius: 999px; width: fit-content; }
+  .stat { display: flex; flex-direction: column; margin-top: .6rem; }
+  .stat .label { font-family: var(--font-script); color: var(--script); font-size: 1.3rem; font-weight: 600; }
+  .stat .value { font-family: var(--font-script); color: var(--script); font-size: 2.3rem; font-weight: 700; line-height: 1; }
+  .callout { font-size: .95rem; color: var(--ink-mute); border-left: 2px solid var(--line); padding-left: .8rem; }
+
+  .shot { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); background: var(--mist); }
+  .shot.window { padding-top: 30px; position: relative; }
+  .shot.window::before {
+    content: ""; position: absolute; top: 11px; left: 14px; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--line); box-shadow: 14px 0 0 var(--line), 28px 0 0 var(--line);
+  }
+  .shot img, .shot video { width: 100%; }
+  .stack { display: grid; gap: 1rem; }
+  .stack .shot { box-shadow: var(--shadow-soft); }
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
+  @media (max-width: 600px) { .duo { grid-template-columns: 1fr; } }
+  .phone-shot { border-radius: 30px; overflow: hidden; box-shadow: var(--shadow); border: 6px solid #1a1a1a; background: #1a1a1a; width: min(100%, 300px); margin-inline: auto; }
+  .phone-shot video, .phone-shot img { border-radius: 24px; width: 100%; }
+  .photo { border-radius: var(--radius); overflow: hidden; height: 100%; min-height: 320px; }
+  .photo img { width: 100%; height: 100%; object-fit: cover; }
+  .annot { display: flex; align-items: center; gap: .6rem; margin-top: 1rem; }
+  .annot img { width: 70px; }
+  .annot .script { font-size: 1.4rem; }
+
+  /* channels row */
+  .channels { display: flex; align-items: center; gap: .8rem; margin-top: .5rem; }
+  .channels img { width: 92px; }
+  .channels span { font-size: .95rem; color: var(--ink-soft); }
+
+  /* ---------- launch band ---------- */
+  .launch { background: var(--mist); }
+
+  /* ---------- closing ---------- */
+  .closing { padding: clamp(3rem, 8vw, 6rem) 0 0; text-align: center; border-top: 1px solid var(--line); overflow: hidden; }
+  .closing .robot { width: 64px; margin: 0 auto .6rem; }
+  .closing h2 { font-size: clamp(2rem, 4.6vw, 3.2rem); margin-top: .6rem; }
+  .closing .hero-cta { margin-top: 1.8rem; }
+  .closing-strip { margin-top: 3rem; width: min(1400px, 110%); margin-inline: auto; transform: translateX(-2%); pointer-events: none; }
+
+  footer { border-top: 1px solid var(--line); padding: 1.6rem 0 2.2rem; font-size: .9rem; color: var(--ink-mute); }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: .8rem 1.6rem; align-items: center; justify-content: space-between; }
+  footer a { color: var(--ink-soft); text-decoration: none; }
+  footer a:hover { color: var(--brand); }
+  footer nav { display: flex; flex-wrap: wrap; gap: 1.2rem; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Hosli">
+      <img src="assets/favicon.png" alt="">
+      HOSLI
+    </a>
+    <nav class="topnav" aria-label="Secciones">
+      <a href="#ciclo">Cómo funciona</a>
+      <a href="#revenue">Precios</a>
+      <a href="#canales">Canales</a>
+      <a href="#compras">Compras</a>
+      <a href="#multicanal">WhatsApp y Telegram</a>
+    </nav>
+    <a class="btn btn-primary btn-sm" href="https://app.hosli.ai/login">Entrar a Hosli</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-logo">
+        <video autoplay muted loop playsinline poster="assets/logo-robot-poster.jpg" aria-hidden="true">
+          <source src="assets/logo-robot.mp4" type="video/mp4">
+        </video>
+        <div class="hero-word">
+          <img src="assets/hosli-wordmark.webp" alt="Hosli">
+          <img src="assets/hosli-jetski.webp" alt="">
+        </div>
+      </div>
+      <h1>El sistema operativo de tu hotel</h1>
+      <p class="lede">Precios, canales y compras en un solo lugar. Hosli mira lo que pasa cada día, te recomienda qué hacer y lo ejecuta contigo.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="https://app.hosli.ai/login">Entrar a Hosli
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="#ciclo">Ver cómo funciona</a>
+      </div>
+      <p class="hero-note">Disponible en la web, WhatsApp y Telegram.</p>
+    </div>
+  </section>
+
+  <!-- ============ CICLO ============ -->
+  <section class="cycle" id="ciclo">
+    <div class="wrap cycle-grid">
+      <div>
+        <p class="eyebrow">Cómo te ayuda Hosli</p>
+        <h2>Un solo ciclo para gestionar el día del hotel.</h2>
+        <p class="eyebrow" style="margin-top:1.8rem">Un ciclo simple</p>
+        <div class="cycle-cards">
+          <div class="cycle-card">
+            <strong>Ve qué necesita atención</strong>
+            <span class="big">1 min</span>
+          </div>
+          <div class="cycle-card">
+            <strong>Decide con todo el contexto</strong>
+            <img class="icons" src="assets/channels-icons.webp" alt="Web, WhatsApp y Telegram">
+          </div>
+          <div class="cycle-card">
+            <strong>Ejecuta y aprende</strong>
+            <div class="loop" aria-label="Mira, recomienda, ejecuta">
+              <span>Mira</span><img src="assets/arrow-curve-grey.webp" alt="">
+              <span>Recomienda</span><img src="assets/arrow-curve-grey.webp" alt="">
+              <span>Ejecuta</span><img src="assets/arrow-curve-grey.webp" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cycle-visual">
+        <div class="cycle-notes" aria-hidden="true">
+          <div><small>Foco</small><span class="script">diario</span></div>
+          <div><small>Mide</small><span class="script">resultados</span></div>
+        </div>
+        <img class="laptop" src="assets/laptop-inicio.webp" alt="Panel de inicio de Hosli con las alertas del día en una laptop">
+        <img class="phone" src="assets/phone-agent.webp" alt="Agente Hosli en el teléfono">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONECTA ============ -->
+  <section class="feature" id="conecta">
+    <div class="wrap feature-grid">
+      <div class="feature-copy">
+        <p class="eyebrow">Integraciones</p>
+        <h3>Conecta en un minuto.</h3>
+        <p>Conecta tu PMS y Channel Manager para tener el contexto del hotel desde el primer día.</p>
+        <a class="find" href="https://app.hosli.ai/integraciones">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <span class="lead">Encuéntralo en</span> <span class="crumb">Configuración → Integraciones</span>
+        </a>
+        <img src="assets/connect-diagram.webp" alt="PMS, Channel Manager, Booking y CRM conectados a Hosli" style="width:min(100%,340px);margin-top:.8rem">
+      </div>
+      <div class="shot window"><img src="assets/integraciones.jpg" alt="Pantalla de Integraciones de Hosli con conexiones de PMS y Channel Manager"></div>
+    </div>
+  </section>
+
+  <!-- ============ PANEL DE CONTROL ============ -->
+  <section class="feature flip" id="panel">
+    <div class="wrap feature-grid">
+      <div class="feature-copy">
+        <p class="eyebrow">Tu día</p>
+        <h3>Empieza por lo que necesita atención.</h3>
+        <p>Ve oportunidades de precios, canales y compras en una vista priorizada.</p>
+        <p>Entiende qué cambió, por qué importa y dónde actuar primero.</p>
+        <a class="find" href="https://app.hosli.ai/inicio">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <span class="lead">Encuéntralo en</span> <span class="crumb">Tu día → Panel de Control</span>
+        </a>
+      </div>
+      <div class="shot window"><img src="assets/panel-control.jpg" alt="Panel de Control de Hosli con oportunidades de precios priorizadas"></div>
+    </div>
+  </section>
+
+  <!-- ============ AGENTE HOSLI ============ -->
+  <section class="feature" id="agente">
+    <div class="wrap feature-grid">
+      <div class="feature-copy">
+        <p class="eyebrow">Agente Hosli</p>
+        <h3>Pregúntale cualquier cosa sobre tu hotel.</h3>
+        <p>Obtén respuestas basadas en tus propios datos, sin buscar entre reportes.</p>
+        <a class="find" href="https://app.hosli.ai/assistant">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <span class="lead">Encuéntralo en</span> <span class="crumb">Tu día → Agente Hosli</span>
+        </a>
+      </div>
+      <div class="shot" style="max-width:440px;justify-self:center"><img src="assets/agent-chat.jpg" alt="Conversación con el Agente Hosli sobre reservas y precios"></div>
+    </div>
+  </section>
+
+  <!-- ============ AGENTE DE REVENUE ============ -->
+  <section class="feature flip" id="revenue">
+    <div class="wrap feature-grid">
+      <div class="feature-copy">
+        <p class="eyebrow">Agente de Revenue</p>
+        <h3>Una tarifa recomendada para cada fecha.</h3>
+        <p>Recibe una tarifa recomendada según ocupación, pickup, demanda y mercado.</p>
+        <p>Entiende qué impulsa cada recomendación.</p>
+        <div class="stat"><span class="label">Ingreso por noche</span><span class="value">+10% a +50%</span></div>
+        <a class="find" href="https://app.hosli.ai/precios">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <span class="lead">Encuéntralo en</span> <span class="crumb">Módulos → Precios</span>
+        </a>
+      </div>
+      <div class="stack">
+        <div class="shot"><img src="assets/precios-pulso.webp" alt="Gestión de precios de Hosli con el pulso semanal de ocupación y tarifas"></div>
+        <div class="shot"><img src="assets/inicio-oportunidades.webp" alt="Oportunidades de precio con el botón Aplicar recomendación"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CALENDARIO ============ -->
+  <section class="feature" id="calendario">
+    <div class="wrap feature-grid">
+      <div class="feature-copy">
+        <p class="eyebrow">Calendario de Tarifas</p>
+        <h3>Planifica cada fecha en un solo calendario.</h3>
+        <p>Ve tarifas, ocupación, demanda, posición de mercado y estacionalidad por fecha.</p>
+        <p>Revisa el contexto completo antes de cambiar una tarifa.</p>
+        <a class="find" href="https://app.hosli.ai/rate-calendar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <span class="lead">Encuéntralo en</span> <span class="crumb">Tu día → Calendario de Tarifas</span>
+        </a>
+        <p class="callout">Para editar tarifas necesitas un Channel Manager conectado.</p>
+      </div>
+      <div class="shot window"><img src="assets/calendario.jpg" alt="Calendario de Tarifas de Hosli con precios y ocupación por fecha"></div>
+    </div>
+  </section>
+
+  <!-- ============ PREFERENCIAS ============ -->
+  <section class="feature flip" id="estrategia">
+    <div class="wrap feature-grid">
+      <div class="feature-copy">
+        <p class="eyebrow">Preferencias</p>
+        <h3>Define la estrategia que sigue Hosli.</h3>
+        <p>Define una vez temporadas, curvas de pickup, reglas por canal y límites de tarifa.</p>
+        <p>Hosli aplica esas reglas a cada recomendación.</p>
+        <a class="find" href="https://app.hosli.ai/preferencias">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <span class="lead">Encuéntralo en</span> <span class="crumb">Configuración → Preferencias</span>
+        </a>
+      </div>
+      <div class="shot window"><img src="assets/preferencias.jpg" alt="Preferencias de Hosli: temporadas y demanda"></div>
+    </div>
+  </section>
+
+  <!-- ============ SET COMPETITIVO ============ -->
+  <section class="feature" id="compset">
+    <div class="wrap feature-grid">
+      <div class="feature-copy">
+        <p class="eyebrow">Set competitivo</p>
+        <h3>Fija tu set competitivo. Hosli analiza por ti.</h3>
+        <p>Elige los hoteles con los que realmente quieres compararte.</p>
+        <p>Hosli monitorea en Booking su precio, posición, promociones y condiciones para darte insights accionables.</p>
+        <a class="find" href="https://app.hosli.ai/preferencias/canales/competitors">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <span class="lead">Encuéntralo en</span> <span class="crumb">Configuración → Preferencias → Canales</span>
+        </a>
+      </div>
+      <div class="shot window"><img src="assets/set-competitivo.jpg" alt="Lista de competidores configurada en Hosli"></div>
+    </div>
+  </section>
+
+  <!-- ============ AGENTE DE CANALES ============ -->
+  <section class="feature flip" id="canales">
+    <div class="wrap feature-grid">
+      <div class="feature-copy">
+        <p class="eyebrow">Agente de Canales</p>
+        <h3>Recomendaciones accionables para mejorar resultados.</h3>
+        <p>Compara tarifas, promociones, puntuaciones, reseñas y condiciones de reserva en el mercado.</p>
+        <p>Ve cómo está tu oferta y qué puedes mejorar.</p>
+        <a class="find" href="https://app.hosli.ai/canales">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <span class="lead">Encuéntralo en</span> <span class="crumb">Módulos → Canales</span>
+        </a>
+      </div>
+      <div class="stack">
+        <div class="shot"><img src="assets/canales-oferta.webp" alt="Alerta de Hosli: sin oferta publicada, con el botón Ir a tu extranet"></div>
+        <div class="shot">
+          <video autoplay muted loop playsinline poster="assets/canales-pulso-poster.jpg" aria-label="Pulso semanal de canales: ocupación y posición en Booking frente a la competencia">
+            <source src="assets/canales-pulso.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AGENTE DE COMPRAS ============ -->
+  <section class="feature" id="compras">
+    <div class="wrap feature-grid">
+      <div class="feature-copy">
+        <p class="eyebrow">Agente de Compras</p>
+        <h3>Convierte tus datos de compras en oportunidades claras de ahorro.</h3>
+        <div class="stat"><span class="label">Ahorro identificado</span><span class="value">−6% en promedio</span></div>
+        <a class="find" href="https://app.hosli.ai/compras">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <span class="lead">Encuéntralo en</span> <span class="crumb">Módulos → Compras y Costos</span>
+        </a>
+      </div>
+      <div class="shot">
+        <video autoplay muted loop playsinline poster="assets/compras-ahorro-poster.jpg" aria-label="Oportunidades de ahorro por proveedor en Hosli">
+          <source src="assets/compras-ahorro.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AGENTE DE EJECUCIÓN ============ -->
+  <section class="feature flip" id="ejecucion">
+    <div class="wrap feature-grid">
+      <div class="feature-copy">
+        <p class="eyebrow">Agente de Ejecución</p>
+        <h3>Aplica un cambio de tarifa recomendado sin salir de Hosli.</h3>
+        <p>Apruebas la propuesta y Hosli actualiza las tarifas en tu Channel Manager por ti.</p>
+        <a class="find" href="https://app.hosli.ai/precios">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <span class="lead">Encuéntralo en</span> <span class="crumb">Panel de Control o Precios</span>
+        </a>
+        <div class="channels">
+          <img src="assets/channels-icons.webp" alt="">
+          <span>Acceso multicanal: WhatsApp, Telegram y web</span>
+        </div>
+      </div>
+      <div class="duo">
+        <div class="shot">
+          <video autoplay muted loop playsinline poster="assets/gofeels-sync-poster.jpg" aria-label="Tarifa actualizada en el Channel Manager">
+            <source src="assets/gofeels-sync.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="phone-shot">
+          <video autoplay muted loop playsinline poster="assets/whatsapp-ejecucion-poster.jpg" aria-label="Propuesta de cambio de tarifa aprobada desde WhatsApp">
+            <source src="assets/whatsapp-ejecucion.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MULTICANAL ============ -->
+  <section class="feature" id="multicanal">
+    <div class="wrap feature-grid">
+      <div class="feature-copy">
+        <p class="eyebrow">Atención multicanal</p>
+        <h3>Hosli acompaña al equipo donde ocurre el día.</h3>
+        <p>Hosli envía alertas y resúmenes proactivos por Telegram.</p>
+        <p>Tu equipo se mantiene informado y puede continuar por WhatsApp o web.</p>
+        <div class="channels">
+          <img src="assets/channels-icons.webp" alt="">
+          <span>WhatsApp, Telegram y web</span>
+        </div>
+      </div>
+      <div class="duo" style="align-items:stretch">
+        <div class="photo"><img src="assets/photo-bed.jpg" alt=""></div>
+        <img src="assets/phone-agent.webp" alt="Resumen diario de Hosli en el teléfono" style="width:min(100%,300px);margin-inline:auto;filter:drop-shadow(0 18px 30px rgba(0,0,0,.25))">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NUEVO: PULSO SEMANAL ============ -->
+  <section class="feature launch" id="pulso">
+    <div class="wrap feature-grid">
+      <div class="feature-copy">
+        <span class="badge">Nuevo</span>
+        <h3>Todo el contexto de precios antes de actuar.</h3>
+        <p>Revisa cómo evolucionó la ocupación de tu hotel las últimas 5 semanas y compárala con el año pasado directamente en el pulso semanal de precios.</p>
+        <p>Ve la tendencia reciente antes de decidir y si la temporada va por encima o por debajo del año pasado.</p>
+        <a class="find" href="https://app.hosli.ai/precios">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <span class="lead">Encuéntralo en</span> <span class="crumb">Módulos → Precios → Pulso semanal</span>
+        </a>
+      </div>
+      <div class="shot window">
+        <video autoplay muted loop playsinline poster="assets/precios-pulso-semanal-poster.jpg" aria-label="Pulso semanal con ocupación de las últimas cinco semanas y comparación con el año pasado">
+          <source src="assets/precios-pulso-semanal.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NUEVO: BITÁCORA ============ -->
+  <section class="feature launch flip" id="bitacora">
+    <div class="wrap feature-grid">
+      <div class="feature-copy">
+        <span class="badge">Nuevo</span>
+        <h3>Cierra el ciclo con la Bitácora de precios.</h3>
+        <p>Relaciona cada cambio de precio con el resultado que vino después.</p>
+        <p>Ve ingresos, ADR, RevPAR, ocupación y noches vendidas en un solo lugar.</p>
+        <a class="find" href="https://app.hosli.ai/precios">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <span class="lead">Encuéntralo en</span> <span class="crumb">Módulos → Precios → Bitácora</span>
+        </a>
+      </div>
+      <div class="shot window"><img src="assets/bitacora.jpg" alt="Bitácora de precios de Hosli con ingresos, ADR, RevPAR y ocupación por cambio"></div>
+    </div>
+  </section>
+
+  <!-- ============ CIERRE ============ -->
+  <section class="closing">
+    <div class="wrap">
+      <img class="robot" src="assets/favicon.png" alt="">
+      <p class="eyebrow">Hecho para hoteles</p>
+      <h2>Decide, ejecuta y aprende.</h2>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="https://app.hosli.ai/login">Entrar a Hosli
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+    <img class="closing-strip" src="assets/strip-cards.webp" alt="">
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Hosli · El sistema operativo de tu hotel</span>
+    <nav aria-label="Enlaces">
+      <a href="https://app.hosli.ai">app.hosli.ai</a>
+      <a href="https://app.hosli.ai/login">Ingresar</a>
+      <a href="#top">Volver arriba</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  // Respect reduced motion: keep the first frame, don't loop the product videos.
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('video').forEach(v => { v.removeAttribute('autoplay'); v.pause(); });
+  }
+</script>
+</body>
+</html>
