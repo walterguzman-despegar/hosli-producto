@@ -104,10 +104,26 @@
   .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .7rem 0; }
   .brand { display: inline-flex; align-items: center; gap: .55rem; text-decoration: none; font-weight: 600; letter-spacing: .12em; font-size: .85rem; }
   .brand img { width: 26px; height: 26px; }
-  .topnav { display: none; gap: 1.6rem; font-size: .95rem; }
+  .topnav { display: none; gap: 1.25rem; font-size: .92rem; white-space: nowrap; }
   .topnav a { text-decoration: none; color: var(--ink-soft); }
   .topnav a:hover { color: var(--ink); }
-  @media (min-width: 900px) { .topnav { display: flex; } }
+  @media (min-width: 1040px) { .topnav { display: flex; align-items: center; } }
+  .topnav .menu { position: relative; }
+  .topnav .menu > a { display: inline-flex; align-items: center; gap: .3rem; }
+  .topnav .menu > a svg { width: 14px; height: 14px; transition: transform .15s; }
+  .topnav .menu:hover > a svg, .topnav .menu:focus-within > a svg { transform: rotate(180deg); }
+  .menu-panel {
+    position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(6px);
+    min-width: 300px; padding: .5rem; margin-top: .6rem;
+    background: var(--ground); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow);
+    display: grid; gap: .1rem; opacity: 0; visibility: hidden; transition: opacity .15s, transform .15s, visibility .15s;
+  }
+  .menu-panel::before { content: ""; position: absolute; top: -.7rem; left: 0; right: 0; height: .7rem; }
+  .topnav .menu:hover .menu-panel, .topnav .menu:focus-within .menu-panel { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+  .menu-panel a { display: grid; gap: .1rem; padding: .55rem .75rem; border-radius: 10px; text-decoration: none; }
+  .menu-panel a:hover { background: var(--mist); }
+  .menu-panel strong { font-weight: 500; color: var(--ink); }
+  .menu-panel span { font-size: .82rem; color: var(--ink-mute); }
 
   .btn {
     display: inline-flex; align-items: center; gap: .5rem; padding: .78rem 1.25rem; border-radius: 999px;
@@ -250,11 +266,20 @@
     <nav class="topnav" aria-label="Secciones">
       <a href="#ciclo">Cómo funciona</a>
       <a href="#panel">Inicio</a>
-      <a href="#revenue">Precios</a>
-      <a href="#canales">Canales</a>
-      <a href="#compras">Compras</a>
+      <div class="menu">
+        <a href="#revenue" aria-haspopup="true">Tu sistema operativo
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="menu-panel">
+          <a href="#revenue"><strong>Precios</strong><span>Una tarifa recomendada para cada fecha</span></a>
+          <a href="#canales"><strong>Canales</strong><span>Tu oferta frente al mercado y qué mejorar</span></a>
+          <a href="#compras"><strong>Compras</strong><span>Oportunidades claras de ahorro</span></a>
+        </div>
+      </div>
       <a href="#multicanal">WhatsApp y Telegram</a>
       <a href="#conecta-pms">Conecta tu PMS</a>
+      <a href="#pulso">Lo nuevo</a>
+      <a href="#bitacora">Lo que viene</a>
     </nav>
     <a class="btn btn-primary btn-sm" href="https://staging.hosli.ai/login">Entrar a Hosli</a>
   </div>
