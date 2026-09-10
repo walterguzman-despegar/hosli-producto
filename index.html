@@ -211,9 +211,10 @@
   .steps .num { font-family: var(--font-script); color: var(--script); font-size: 2rem; font-weight: 700; line-height: 1; margin-top: -.1rem; }
   .steps strong { display: block; font-weight: 500; font-size: 1rem; line-height: 1.3; margin-bottom: .25rem; }
   .steps p { color: var(--ink-soft); font-size: .9rem; max-width: none; }
-  .steps .kbd { display: inline-block; font-size: .85rem; font-weight: 500; color: var(--brand); background: var(--lilac); border-radius: 6px; padding: .05rem .45rem; white-space: nowrap; }
+  .steps .kbd, .steps-note .kbd { display: inline-block; font-size: .85rem; font-weight: 500; color: var(--brand); background: var(--lilac); border-radius: 6px; padding: .05rem .45rem; white-space: nowrap; }
   .steps-note { background: var(--lilac); border-radius: 14px; padding: .9rem 1.1rem; display: flex; flex-direction: column; gap: .3rem; }
   .steps-note .script { font-size: 1.5rem; }
+  .steps-note .kbd { background: var(--ground); }
   .steps-note p { color: var(--ink-soft); font-size: .9rem; max-width: none; }
 
   /* ---------- launch band ---------- */
@@ -575,8 +576,51 @@
     </div>
   </section>
 
+  <!-- ============ CHANNEL MANAGER EN 3 PASOS ============ -->
+  <section class="feature" id="conecta-cm">
+    <div class="wrap feature-grid">
+      <div class="feature-copy">
+        <p class="eyebrow">Integraciones</p>
+        <h3>Conecta tu channel manager en 3 pasos.</h3>
+        <p>Así Hosli lee tus tarifas publicadas y las actualiza cuando apruebas una propuesta.</p>
+        <ol class="steps">
+          <li>
+            <span class="num" aria-hidden="true">1</span>
+            <div>
+              <strong>Crea un usuario para Hosli en tu channel manager</strong>
+              <p>Lo recomendado para conexiones y automatizaciones es un usuario dedicado, no el tuyo: la conexión no depende de la clave de nadie y puedes revocarla cuando quieras.</p>
+            </div>
+          </li>
+          <li>
+            <span class="num" aria-hidden="true">2</span>
+            <div>
+              <strong>Agrega el canal en Hosli</strong>
+              <p>En Integraciones → Conectores, pulsa <span class="kbd">Agregar canal</span>, elige tu channel manager e ingresa ese usuario.</p>
+            </div>
+          </li>
+          <li>
+            <span class="num" aria-hidden="true">3</span>
+            <div>
+              <strong>Guardar y probar</strong>
+              <p>Hosli verifica el acceso y sincroniza tu catálogo y tarifas. Desde ahí, cada propuesta aprobada se publica sola.</p>
+            </div>
+          </li>
+        </ol>
+        <div class="steps-note">
+          <span class="script">Si usas Cloudbeds</span>
+          <p>Crea el usuario con permiso de administrador y con este correo: <span class="kbd">contacto+&lt;hotel&gt;@hosli.ai</span> (por ejemplo, contacto+ladera@hosli.ai). Con eso, Hosli completa la conexión por ti.</p>
+        </div>
+        <a class="find" href="https://staging.hosli.ai/integraciones/conectores">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <span class="lead">Encuéntralo en</span> <span class="crumb">Configuración → Integraciones → Conectores</span>
+        </a>
+      </div>
+      <div class="shot window"><img src="assets/conexion-channel-manager.jpg" alt="Diálogo Agregar canal en Hosli: nombre de conexión, proveedor, usuario y contraseña del channel manager"></div>
+    </div>
+  </section>
+
   <!-- ============ PREFERENCIAS ============ -->
-  <section class="feature" id="estrategia">
+  <section class="feature flip" id="estrategia">
     <div class="wrap feature-grid">
       <div class="feature-copy">
         <p class="eyebrow">Preferencias</p>
@@ -593,7 +637,7 @@
   </section>
 
   <!-- ============ SET COMPETITIVO ============ -->
-  <section class="feature flip" id="compset">
+  <section class="feature" id="compset">
     <div class="wrap feature-grid">
       <div class="feature-copy">
         <p class="eyebrow">Set competitivo</p>
