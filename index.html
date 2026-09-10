@@ -205,6 +205,17 @@
   .channels img { width: 92px; }
   .channels span { font-size: .95rem; color: var(--ink-soft); }
 
+  /* ---------- steps (PMS en 3 pasos) ---------- */
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: .8rem; counter-reset: step; }
+  .steps li { background: var(--mist); border-radius: var(--radius); padding: 1.1rem 1.2rem 1.1rem 1rem; display: grid; grid-template-columns: 2.6rem 1fr; gap: .6rem; align-items: start; border: 1px solid var(--line); }
+  .steps .num { font-family: var(--font-script); color: var(--script); font-size: 2.4rem; font-weight: 700; line-height: 1; margin-top: -.1rem; }
+  .steps strong { display: block; font-weight: 500; font-size: 1.05rem; line-height: 1.3; margin-bottom: .25rem; }
+  .steps p { color: var(--ink-soft); font-size: .95rem; max-width: none; }
+  .steps .kbd { display: inline-block; font-size: .85rem; font-weight: 500; color: var(--brand); background: var(--lilac); border-radius: 6px; padding: .05rem .45rem; white-space: nowrap; }
+  .steps-note { margin-top: 1rem; background: var(--lilac); border-radius: var(--radius); padding: 1rem 1.2rem; display: flex; gap: .9rem; align-items: center; }
+  .steps-note .script { font-size: 1.6rem; white-space: nowrap; }
+  .steps-note p { color: var(--ink-soft); font-size: .95rem; max-width: none; }
+
   /* ---------- launch band ---------- */
   .launch { background: var(--mist); }
 
@@ -520,8 +531,53 @@
     </div>
   </section>
 
+  <!-- ============ PMS EN 3 PASOS ============ -->
+  <section class="feature flip" id="conecta-pms">
+    <div class="wrap feature-grid">
+      <div class="feature-copy">
+        <p class="eyebrow">Integraciones</p>
+        <h3>Conecta tu PMS en 3 pasos.</h3>
+        <p>Cinco minutos, sin equipo técnico. Desde ese momento Hosli lee reservas, ocupación y tarifas de tu hotel y las mantiene al día.</p>
+        <p>Si tu PMS es también tu channel manager, como GoFeels, esa misma conexión deja a Hosli listo para actualizar tus tarifas en los canales. Sin segundo login.</p>
+        <a class="find" href="https://staging.hosli.ai/integraciones/conectores">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <span class="lead">Encuéntralo en</span> <span class="crumb">Configuración → Integraciones → Conectores</span>
+        </a>
+      </div>
+      <div>
+        <ol class="steps">
+          <li>
+            <span class="num" aria-hidden="true">1</span>
+            <div>
+              <strong>Agrega la conexión</strong>
+              <p>Pulsa <span class="kbd">Agregar conexión</span> y elige tu PMS: GoFeels, Opera Cloud o Cloudbeds.</p>
+            </div>
+          </li>
+          <li>
+            <span class="num" aria-hidden="true">2</span>
+            <div>
+              <strong>Ingresa tus credenciales</strong>
+              <p>Usuario y contraseña del PMS. Si es GoFeels, también el ID de tu hotel (el número que aparece en la URL).</p>
+            </div>
+          </li>
+          <li>
+            <span class="num" aria-hidden="true">3</span>
+            <div>
+              <strong>Sincroniza y listo</strong>
+              <p>Pulsa <span class="kbd">Sincronizar ahora</span>. Hosli trae tus reservas, ocupación y tarifas, y desde ahí se actualiza solo.</p>
+            </div>
+          </li>
+        </ol>
+        <div class="steps-note">
+          <span class="script">PMS + Channel Manager</span>
+          <p>Con GoFeels, al guardar la conexión Hosli conecta también el channel manager y sincroniza tu catálogo y tarifas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ PREFERENCIAS ============ -->
-  <section class="feature flip" id="estrategia">
+  <section class="feature" id="estrategia">
     <div class="wrap feature-grid">
       <div class="feature-copy">
         <p class="eyebrow">Preferencias</p>
@@ -538,7 +594,7 @@
   </section>
 
   <!-- ============ SET COMPETITIVO ============ -->
-  <section class="feature" id="compset">
+  <section class="feature flip" id="compset">
     <div class="wrap feature-grid">
       <div class="feature-copy">
         <p class="eyebrow">Set competitivo</p>
